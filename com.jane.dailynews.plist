@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.alline.dailynews</string>
+    <string>com.jane.dailynews</string>
 
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/alline/Playground/news-automation/run.sh</string>
+        <string>/Users/jane/Playground/news-automation/run.sh</string>
     </array>
 
     <key>StartCalendarInterval</key>
@@ -20,9 +20,9 @@
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/Users/alline/Playground/news-automation/automation.log</string>
+    <string>/Users/jane/Playground/news-automation/automation.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/alline/Playground/news-automation/automation.err.log</string>
+    <string>/Users/jane/Playground/news-automation/automation.err.log</string>
 </dict>
 </plist>

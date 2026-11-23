@@ -181,16 +181,16 @@ chmod +x run.sh
 
 ### 1. macOS (`launchd`)
 
-Proyek ini telah menyertakan berkas konfigurasi `com.alline.dailynews.plist` yang dijadwalkan berjalan otomatis setiap pukul 06:00 pagi:
+Proyek ini telah menyertakan berkas konfigurasi `com.jane.dailynews.plist` yang dijadwalkan berjalan otomatis setiap pukul 06:00 pagi:
 
-1. Sesuaikan path pada `com.alline.dailynews.plist` agar mengarah ke direktori proyek Anda.
+1. Sesuaikan path pada `com.jane.dailynews.plist` agar mengarah ke direktori proyek Anda.
 2. Salin plist ke `~/Library/LaunchAgents/`:
    ```bash
-   cp com.alline.dailynews.plist ~/Library/LaunchAgents/
+   cp com.jane.dailynews.plist ~/Library/LaunchAgents/
    ```
 3. Aktifkan service launchd:
    ```bash
-   launchctl load ~/Library/LaunchAgents/com.alline.dailynews.plist
+   launchctl load ~/Library/LaunchAgents/com.jane.dailynews.plist
    ```
 
 ### 2. Linux / Unix (`Cron`)
@@ -231,7 +231,7 @@ news-automation/
 ├── daily_news.py            # Skrip inti agregasi, sintesis, dan siaran berita
 ├── config.json              # Berkas konfigurasi feed RSS dan kredensial lokal
 ├── run.sh                   # Runner script shell untuk eksekusi terjadwal
-├── com.alline.dailynews.plist # Konfigurasi jadwal launchd macOS
+├── com.jane.dailynews.plist   # Konfigurasi jadwal launchd macOS
 ├── daily-summary.md         # Berkas ringkasan berita harian terkini
 ├── automation.log           # Log standar output eksekusi terjadwal
 ├── automation.err.log       # Log pesan peringatan / error eksekusi terjadwal

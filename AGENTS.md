@@ -40,7 +40,7 @@ Skrip utama `daily_news.py` dirancang dengan arsitektur pipeline terstruktur yan
   - Selalu gunakan file `.env.example` sebagai referensi struktur parameter.
   - Berkas `config.json`, `.env`, dan `*.env` dilindungi di `.gitignore`.
 - **Portabilitas Path**:
-  - Jangan gunakan path absolut yang terikat pada OS atau username tertentu (misal: `/Users/alline/...` atau `C:\Users\...`).
+  - Jangan gunakan path absolut yang terikat pada OS atau username tertentu (misal: `/Users/jane/...` atau `C:\Users\...`).
   - Selalu gunakan `os.path.join(SCRIPT_DIR, ...)` atau `os.path.normpath()` untuk path file lokal.
 
 ---
