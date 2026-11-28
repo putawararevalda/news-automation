@@ -2,6 +2,8 @@
 param(
     [Parameter(Position=0)]
     [string]$Action = "",
+    [switch]$DryRun,
+    [switch]$Test,
     [Parameter(ValueFromRemainingArguments=$true)]
     [string[]]$RemainingArgs
 )
@@ -49,6 +51,8 @@ switch ($Action.ToLower()) {
     }
     default {
         $runArgs = @("compose", "run", "--rm", "news-runner")
+        if ($DryRun) { $runArgs += "--dry-run" }
+        if ($Test) { $runArgs += "--test" }
         if ($Action) { $runArgs += $Action }
         if ($RemainingArgs) { $runArgs += $RemainingArgs }
         Write-Host "Executing news-runner in container..." -ForegroundColor Cyan
