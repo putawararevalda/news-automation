@@ -3,50 +3,50 @@
 
 > Diurutkan berdasarkan jumlah media yang meliput isu tersebut.
 
-1️⃣ <b>Psps Pekanbaru Tundukkan Persikad Depok 3</b>
-<i>(Diliput oleh 1 sumber: Antara News Terkini)</i>
+1️⃣ **6 Manfaat Cokelat Hitam Bagi Kesehatan Jantung Dan Otak?**
+*(Diliput oleh 1 sumber: Antara News Terkini)*
 
-PSPS Pekanbaru menundukkan Persikad Depok dengan skor 3-0 dalam pertandingan Pegadaian Championship di Stadion ...
+Cokelat hitam atau dark chocolate sering dianggap sebagai pilihan yang lebih sehat dibandingkan cokelat susu. Selain ...
 
-<b>Read more:</b>
-• [PSPS Pekanbaru tundukkan Persikad Depok 3-0 — Antara News Terkini](https://www.antaranews.com/berita/5885471/psps-pekanbaru-tundukkan-persikad-depok-3-0)
+Read more:
+• [6 Manfaat cokelat hitam bagi kesehatan jantung dan otak? — Antara News Terkini](https://www.antaranews.com/berita/5885627/6-manfaat-cokelat-hitam-bagi-kesehatan-jantung-dan-otak)
 
-━━━━━━━━━━━━━━━━━━━━
+---
 
-2️⃣ <b>Smf Menyalurkan Rp38,21 Triliun Program Kpr Flpp Hingga September 2026</b>
-<i>(Diliput oleh 1 sumber: Antara News Terkini)</i>
+2️⃣ **Bezzecchi Naik Ke Posisi Dua Usai Juara Sprint Race Motogp Valencia**
+*(Diliput oleh 1 sumber: Antara News Terkini)*
 
-PT Sarana Multigriya Finansial (Persero) atau SMF telah menyalurkan Rp38,21 triliun untuk mendukung pembiayaan 997.468 ...
+Pembalap Aprilia Racing Marco Bezzecchi berhasil menjuarai Sprint Race MotoGP Valencia 2026, di Sirkuit Ricardo Tormo, ...
 
-<b>Read more:</b>
-• [SMF menyalurkan Rp38,21 triliun program KPR FLPP hingga September 2026 — Antara News Terkini](https://www.antaranews.com/berita/5885467/smf-menyalurkan-rp3821-triliun-program-kpr-flpp-hingga-september-2026)
+Read more:
+• [Bezzecchi naik ke posisi dua usai juara Sprint Race MotoGP Valencia — Antara News Terkini](https://www.antaranews.com/berita/5885623/bezzecchi-naik-ke-posisi-dua-usai-juara-sprint-race-motogp-valencia)
 
-━━━━━━━━━━━━━━━━━━━━
+---
 
-3️⃣ <b>Laporan: Ledakan Di Sekolah Afghanistan Akibat Bahan Peledak Tambang</b>
-<i>(Diliput oleh 1 sumber: Antara News Terkini)</i>
+3️⃣ **Emil Audero Clean Sheet, Rayo Vallecano Menang 1**
+*(Diliput oleh 1 sumber: Antara News Terkini)*
 
-Ledakan yang terjadi di Provinsi Kunar, Afghanistan pada Sabtu pagi diakibatkan oleh bahan peledak industri yang ...
+Emil Audero tampil gemilang saat mengawal gawang Rayo Vallecano dalam kemenangan 1-0 atas Real Betis pada lanjutan ...
 
-<b>Read more:</b>
-• [Laporan: Ledakan di sekolah Afghanistan akibat bahan peledak tambang — Antara News Terkini](https://www.antaranews.com/berita/5885463/laporan-ledakan-di-sekolah-afghanistan-akibat-bahan-peledak-tambang)
+Read more:
+• [Emil Audero clean sheet, Rayo Vallecano menang 1-0 atas Real Betis — Antara News Terkini](https://www.antaranews.com/berita/5885619/emil-audero-clean-sheet-rayo-vallecano-menang-1-0-atas-real-betis)
 
-━━━━━━━━━━━━━━━━━━━━
+---
 
-4️⃣ <b>Mab Perkuat Pasokan Susu Segar Nasional Kurangi Ketergantungan Impor</b>
-<i>(Diliput oleh 1 sumber: Antara News Terkini)</i>
+4️⃣ **Apa Itu Aneurisma Otak Dan Mengapa Bisa Mengancam Nyawa?**
+*(Diliput oleh 1 sumber: Antara News Terkini)*
 
-PT Mulia Anugrah Bhumi (MAB) memperkuat pasokan susu segar nasional melalui pengembangan peternakan sapi perah modern ...
+Sakit kepala merupakan keluhan yang cukup umum dialami banyak orang. Namun, sakit kepala yang muncul secara tiba-tiba ...
 
-<b>Read more:</b>
-• [MAB perkuat pasokan susu segar nasional kurangi ketergantungan impor — Antara News Terkini](https://www.antaranews.com/berita/5885455/mab-perkuat-pasokan-susu-segar-nasional-kurangi-ketergantungan-impor)
+Read more:
+• [Apa itu aneurisma otak dan mengapa bisa mengancam nyawa? — Antara News Terkini](https://www.antaranews.com/berita/5885615/apa-itu-aneurisma-otak-dan-mengapa-bisa-mengancam-nyawa)
 
-━━━━━━━━━━━━━━━━━━━━
+---
 
-5️⃣ <b>Mario Aji Tempati Posisi Ke</b>
-<i>(Diliput oleh 1 sumber: Antara News Terkini)</i>
+5️⃣ **Kemenekraf Bidik Industri Parfum Naik Kelas Lewat Nilam Aceh**
+*(Diliput oleh 1 sumber: Antara News Terkini)*
 
-Pembalap Idemitsu Honda Team Asia asal Indonesia Mario Suryo Aji menempati posisi ke-16 pada sesi kualifikasi kedua ...
+Kementerian Ekonomi Kreatif (Kemenekraf) membidik pengembangan industri parfum berbasis nilam Aceh agar mampu ...
 
-<b>Read more:</b>
-• [Mario Aji tempati posisi ke-16 hasil Q2 Moto2 GP Valencia 2026 — Antara News Terkini](https://www.antaranews.com/berita/5885451/mario-aji-tempati-posisi-ke-16-hasil-q2-moto2-gp-valencia-2026)
+Read more:
+• [Kemenekraf bidik industri parfum naik kelas lewat nilam Aceh — Antara News Terkini](https://www.antaranews.com/berita/5885607/kemenekraf-bidik-industri-parfum-naik-kelas-lewat-nilam-aceh)

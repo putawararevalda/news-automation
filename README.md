@@ -180,54 +180,66 @@ chmod +x run.sh
 ./run.sh
 ```
 
-### Menjalankan via Docker & Docker Compose
+### Menjalankan via Docker & Docker Compose (Web Operations Dashboard)
 
-Proyek ini telah dikontainerisasi menggunakan **Docker** dan **Docker Compose** dengan mempertahankan filosofi *zero external pip dependencies* (berbasis image `python:3.11-alpine`).
+Proyek ini telah dimodernisasi menjadi **Web Operations & Analytics Dashboard** multi-kontainer menggunakan **Docker Compose**:
+- **Backend Service**: FastAPI, SQLite persistence engine (`news.db`), APScheduler, SSE live pipeline, and domain services.
+- **Frontend Dashboard**: Next.js App Router, Tailwind CSS, Lucide Icons, Live Feed Tester, and real-time execution modal.
+- **Single Entrypoint**: Akses dashboard terpadu langsung melalui port non-standar **`58619`** (`http://localhost:58619`).
 
-#### 1. Build Image Kontainer
+#### 1. Menjalankan Dashboard Terpadu (Satu Perintah)
 ```bash
-docker compose build
-```
-
-#### 2. Menjalankan Uji Coba (Dry-Run)
-Menjalankan agregasi, klusterisasi, dan penulisan digest tanpa mengirim pesan Telegram:
-```bash
-docker compose run --rm news-runner --dry-run
-```
-
-#### 3. Menjalankan Eksekusi Penuh (On-Demand)
-Menjalankan pipeline satu kali menggunakan kredensial dari `.env`:
-```bash
-docker compose run --rm news-runner
-```
-
-#### 4. Menjalankan Penjadwal Otomatis (Scheduler Daemon)
-Menjalankan service di background dengan siklus harian otomatis (default interval: 86400 detik / 24 jam):
-```bash
-docker compose up -d news-scheduler
-
-# Memeriksa log scheduler:
-docker compose logs -f news-scheduler
-
-# Menghentikan scheduler:
-docker compose down
-```
-
-#### 5. Menjalankan Web Viewer Digest (Port Non-Standar)
-Menjalankan web viewer ringan bawaan Python untuk menampilkan hasil digest dan `daily-summary.md` di browser.
-> **Catatan Port**: Protokol jaringan TCP membatasi nomor port antara 1 hingga 65535. Port default yang digunakan adalah port non-umum **`58619`** (dapat disesuaikan melalui variabel `PORT` di `.env`).
-
-```bash
-docker compose up -d news-server
+docker compose up -d
 
 # Akses via browser:
 # http://localhost:58619
 ```
 
-#### 6. Menggunakan Helper Script
+#### 2. Memeriksa Log Kontainer
+```bash
+docker compose logs -f
+```
+
+#### 3. Menghentikan Dashboard
+```bash
+docker compose down
+```
+
+#### 4. Menjalankan CLI Mode dalam Kontainer (Backward-Compatible)
+Menjalankan agregasi terminal ad-hoc tanpa membuka browser:
+```bash
+# Uji coba (Dry-run):
+docker compose --profile cli run --rm news-runner --dry-run
+
+# Eksekusi penuh:
+docker compose --profile cli run --rm news-runner
+```
+
+#### 5. Menggunakan Helper Script
 Tersedia skrip pembantu untuk kemudahan eksekusi:
-- **Linux / macOS**: `./run-docker.sh [args]` (contoh: `./run-docker.sh --dry-run`, `./run-docker.sh scheduler`, `./run-docker.sh server`)
-- **Windows PowerShell**: `.\run-docker.ps1 [Action]` (contoh: `.\run-docker.ps1 -Action dry-run`, `.\run-docker.ps1 -Action scheduler`, `.\run-docker.ps1 -Action server`)
+- **Linux / macOS**: `./run-docker.sh [up|down|logs|build|cli]`
+  ```bash
+  ./run-docker.sh up        # Jalankan dashboard web di port 58619
+  ./run-docker.sh cli --dry-run  # Eksekusi CLI dry-run
+  ```
+- **Windows PowerShell**: `.\run-docker.ps1 [up|down|logs|build|cli]`
+  ```powershell
+  .\run-docker.ps1 up       # Jalankan dashboard web di port 58619
+  .\run-docker.ps1 cli -DryRun   # Eksekusi CLI dry-run
+  ```
+
+#### 6. Panduan Deployment CasaOS
+`news-automation` siap dideploy langsung di **CasaOS** menggunakan fitur *Custom App*:
+1. Buka dashboard CasaOS ➔ Klik tombol **"+" (Install a customized app)**.
+2. Klik **Import** di pojok kanan atas ➔ Tempelkan isi dari berkas `docker-compose.yml`.
+3. CasaOS akan otomatis mengenali metadata aplikasi dari blok `x-casaos`:
+   - **Web Port**: `58619`
+   - **Volume Mounts**:
+     - `./data` ➔ `/app/data` (database SQLite `news.db`)
+     - `./digests` ➔ `/app/digests` (arsip markdown berita harian)
+     - `./daily-summary.md` ➔ `/app/daily-summary.md`
+4. Masukkan variabel lingkungan rahasia (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `GEMINI_API_KEY`) di bagian **Environment Variables**.
+5. Klik **Submit**. Aplikasi News Automation akan muncul sebagai icon di home screen CasaOS dan dapat dibuka langsung pada port `58619`.
 
 ---
 
