@@ -31,6 +31,11 @@ switch ($Action.ToLower()) {
         Write-Host "Starting news-automation scheduler daemon..." -ForegroundColor Cyan
         & $containerTool compose up -d news-scheduler
     }
+    "server" {
+        $port = if ($env:PORT) { $env:PORT } else { "58619" }
+        Write-Host "Starting news-automation web server on port $port..." -ForegroundColor Cyan
+        & $containerTool compose up -d news-server
+    }
     "logs" {
         & $containerTool compose logs -f news-scheduler
     }

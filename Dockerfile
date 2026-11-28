@@ -14,6 +14,9 @@ RUN if [ ! -f config.json ] && [ -f config.example.json ]; then cp config.exampl
 # Ensure digests directory exists
 RUN mkdir -p digests
 
+# Expose digest web viewer port (custom non-standard port 58619)
+EXPOSE 58619
+
 # Set default entrypoint/command
 ENTRYPOINT ["python", "daily_news.py"]
 CMD []

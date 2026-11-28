@@ -33,6 +33,10 @@ case "$COMMAND" in
     echo "Starting news-automation scheduler daemon..."
     $CONTAINER_TOOL compose up -d news-scheduler
     ;;
+  server)
+    echo "Starting news-automation web server on port ${PORT:-58619}..."
+    $CONTAINER_TOOL compose up -d news-server
+    ;;
   logs)
     $CONTAINER_TOOL compose logs -f news-scheduler
     ;;

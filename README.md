@@ -213,10 +213,21 @@ docker compose logs -f news-scheduler
 docker compose down
 ```
 
-#### 5. Menggunakan Helper Script
+#### 5. Menjalankan Web Viewer Digest (Port Non-Standar)
+Menjalankan web viewer ringan bawaan Python untuk menampilkan hasil digest dan `daily-summary.md` di browser.
+> **Catatan Port**: Protokol jaringan TCP membatasi nomor port antara 1 hingga 65535. Port default yang digunakan adalah port non-umum **`58619`** (dapat disesuaikan melalui variabel `PORT` di `.env`).
+
+```bash
+docker compose up -d news-server
+
+# Akses via browser:
+# http://localhost:58619
+```
+
+#### 6. Menggunakan Helper Script
 Tersedia skrip pembantu untuk kemudahan eksekusi:
-- **Linux / macOS**: `./run-docker.sh [args]` (contoh: `./run-docker.sh --dry-run`, `./run-docker.sh scheduler`)
-- **Windows PowerShell**: `.\run-docker.ps1 [Action]` (contoh: `.\run-docker.ps1 -Action dry-run`, `.\run-docker.ps1 -Action scheduler`)
+- **Linux / macOS**: `./run-docker.sh [args]` (contoh: `./run-docker.sh --dry-run`, `./run-docker.sh scheduler`, `./run-docker.sh server`)
+- **Windows PowerShell**: `.\run-docker.ps1 [Action]` (contoh: `.\run-docker.ps1 -Action dry-run`, `.\run-docker.ps1 -Action scheduler`, `.\run-docker.ps1 -Action server`)
 
 ---
 
