@@ -21,6 +21,7 @@ router = APIRouter(prefix="/pipeline", tags=["Pipeline"])
 class PipelineRunRequest(BaseModel):
     dry_run: Optional[bool] = Field(default=False)
     auto_broadcast: Optional[bool] = Field(default=False)
+    mode: Optional[str] = Field(default=None)  # "dry_run" | "full"
 
 
 @router.post("/run", response_model=Dict[str, Any])
@@ -40,12 +41,13 @@ async def trigger_pipeline_run(
             detail=f"A pipeline execution is already in progress (run_id={_active_run_id})."
         )
 
+    is_dry_run = bool(req.dry_run) or (req.mode == "dry_run")
     run_id = str(uuid.uuid4())
 
     # Schedule non-blocking execution in background
     background_tasks.add_task(
         execute_pipeline,
-        dry_run=bool(req.dry_run),
+        dry_run=is_dry_run,
         trigger_type="manual",
         auto_broadcast=bool(req.auto_broadcast),
         custom_run_id=run_id,
@@ -54,16 +56,19 @@ async def trigger_pipeline_run(
     return {
         "status": "started",
         "run_id": run_id,
-        "dry_run": req.dry_run,
+        "dry_run": is_dry_run,
         "auto_broadcast": req.auto_broadcast,
+        "mode": req.mode,
         "message": "Pipeline execution started in background.",
     }
 
 
 @router.get("/stream")
-async def stream_pipeline_progress(request: Request):
+@router.get("/stream/{run_id}")
+async def stream_pipeline_progress(request: Request, run_id: Optional[str] = None):
     """
     FR-10: Server-Sent Events (SSE) endpoint streaming pipeline execution progress in real-time.
+    Supports streaming for current pipeline or specific run_id.
     """
     async def event_generator():
         try:
@@ -72,6 +77,7 @@ async def stream_pipeline_progress(request: Request):
                 "event": "connected",
                 "message": "SSE connection established.",
                 "active_run_id": _active_run_id,
+                "requested_run_id": run_id,
             })
             yield f"data: {init_msg}\n\n"
 
@@ -79,6 +85,12 @@ async def stream_pipeline_progress(request: Request):
                 # Check for client disconnect
                 if await request.is_disconnected():
                     break
+
+                # Filter if client specifically requested a single run_id
+                event_run_id = event.get("run_id")
+                if run_id and event_run_id and event_run_id != run_id:
+                    continue
+
                 event_name = event.get("event", "message")
                 data_str = json.dumps(event)
                 yield f"event: {event_name}\ndata: {data_str}\n\n"

@@ -113,12 +113,17 @@ def test_digests_crud():
     assert page_data["total"] >= 1
     assert any(item["id"] == d_id for item in page_data["items"])
 
-    # Get single digest
+    # Get single digest by ID
     get_res = client.get(f"/api/digests/{d_id}")
     assert get_res.status_code == 200
     assert get_res.json()["date"] == "2026-11-25"
 
-    # Edit digest draft (FR-13)
+    # Get single digest by date string (YYYY-MM-DD)
+    get_date_res = client.get("/api/digests/2026-11-25")
+    assert get_date_res.status_code == 200
+    assert get_date_res.json()["id"] == d_id
+
+    # Edit digest draft (FR-13) by ID
     edit_res = client.put(
         f"/api/digests/{d_id}",
         json={"summary_markdown": "1️⃣ **Updated Headline**\nSuntingan kurator.", "status": "draft"},
@@ -128,6 +133,14 @@ def test_digests_crud():
     assert "Updated Headline" in updated_data["summary_markdown"]
     assert "<b>Updated Headline</b>" in updated_data["summary_html"]
 
+    # Edit digest draft by date string (YYYY-MM-DD)
+    edit_date_res = client.put(
+        "/api/digests/2026-11-25",
+        json={"summary_markdown": "1️⃣ **Updated Again**\nSuntingan kedua."},
+    )
+    assert edit_date_res.status_code == 200
+    assert "Updated Again" in edit_date_res.json()["summary_markdown"]
+
 
 def test_pipeline_trigger():
     res = client.post("/api/pipeline/run", json={"dry_run": True, "auto_broadcast": False})
@@ -135,6 +148,10 @@ def test_pipeline_trigger():
     data = res.json()
     assert data["status"] == "started"
     assert "run_id" in data
+
+    # Test trigger with mode="dry_run"
+    res_mode = client.post("/api/pipeline/run", json={"mode": "dry_run"})
+    assert res_mode.status_code in (200, 409)  # 409 if previous background run is still locking
 
 
 def test_pipeline_stream_initial_event():
@@ -147,4 +164,29 @@ def test_pipeline_stream_initial_event():
                 data = line[len("data: "):]
                 assert "connected" in data
                 break
+
+    # Also test stream with run_id parameter
+    with client.stream("GET", "/api/pipeline/stream/test-run-123") as stream_res2:
+        assert stream_res2.status_code == 200
+        assert "text/event-stream" in stream_res2.headers["content-type"]
+        for line in stream_res2.iter_lines():
+            if line:
+                assert line.startswith("data: ")
+                data = line[len("data: "):]
+                assert "test-run-123" in data
+                break
+
+
+def test_modular_services_exports():
+    """Verify that domain modular services are directly importable and intact."""
+    from backend.app.services import rss_service
+    from backend.app.services import cluster_service
+    from backend.app.services import synthesis_service
+    from backend.app.services import telegram_service
+
+    assert hasattr(rss_service, "async_fetch_feed")
+    assert hasattr(cluster_service, "cluster_articles")
+    assert hasattr(synthesis_service, "synthesize_news")
+    assert hasattr(telegram_service, "broadcast_digest_async")
+
 

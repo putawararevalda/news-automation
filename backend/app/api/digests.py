@@ -29,6 +29,15 @@ class PaginatedDigests(BaseModel):
     limit: int
 
 
+def _find_digest(identifier: str, session: Session) -> Optional[Digest]:
+    """Find digest by integer ID or YYYY-MM-DD date string."""
+    if identifier.isdigit():
+        d = session.get(Digest, int(identifier))
+        if d:
+            return d
+    return session.exec(select(Digest).where(Digest.date == identifier)).first()
+
+
 @router.get("", response_model=PaginatedDigests)
 def list_digests(
     page: int = Query(default=1, ge=1),
@@ -51,28 +60,28 @@ def list_digests(
     )
 
 
-@router.get("/{digest_id}", response_model=Digest)
-def get_digest(digest_id: int, session: Session = Depends(get_session)) -> Digest:
-    """Get single digest details including markdown and HTML."""
-    digest = session.get(Digest, digest_id)
+@router.get("/{identifier}", response_model=Digest)
+def get_digest(identifier: str, session: Session = Depends(get_session)) -> Digest:
+    """Get single digest details including markdown and HTML by ID or date (YYYY-MM-DD)."""
+    digest = _find_digest(identifier, session)
     if not digest:
-        raise HTTPException(status_code=404, detail="Digest not found")
+        raise HTTPException(status_code=404, detail=f"Digest '{identifier}' not found")
     return digest
 
 
-@router.put("/{digest_id}", response_model=Digest)
+@router.put("/{identifier}", response_model=Digest)
 def update_digest_draft(
-    digest_id: int,
+    identifier: str,
     digest_in: DigestUpdate,
     session: Session = Depends(get_session),
 ) -> Digest:
     """
-    FR-13: Edit digest summary draft before broadcasting.
+    FR-13: Edit digest summary draft before broadcasting by ID or date (YYYY-MM-DD).
     Re-generates HTML representation automatically if markdown is updated.
     """
-    digest = session.get(Digest, digest_id)
+    digest = _find_digest(identifier, session)
     if not digest:
-        raise HTTPException(status_code=404, detail="Digest not found")
+        raise HTTPException(status_code=404, detail=f"Digest '{identifier}' not found")
 
     if digest_in.summary_markdown is not None:
         digest.summary_markdown = digest_in.summary_markdown
@@ -99,17 +108,17 @@ def update_digest_draft(
     return digest
 
 
-@router.post("/{digest_id}/broadcast", response_model=Dict[str, Any])
+@router.post("/{identifier}/broadcast", response_model=Dict[str, Any])
 async def broadcast_digest(
-    digest_id: int,
+    identifier: str,
     session: Session = Depends(get_session),
 ) -> Dict[str, Any]:
     """
-    FR-14: Manual broadcast of digest to Telegram.
+    FR-14: Manual broadcast of digest to Telegram by ID or date (YYYY-MM-DD).
     """
-    digest = session.get(Digest, digest_id)
+    digest = _find_digest(identifier, session)
     if not digest:
-        raise HTTPException(status_code=404, detail="Digest not found")
+        raise HTTPException(status_code=404, detail=f"Digest '{identifier}' not found")
 
     bot_token = settings.telegram_bot_token
     chat_id = settings.telegram_chat_id

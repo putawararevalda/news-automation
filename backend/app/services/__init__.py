@@ -29,6 +29,18 @@ from backend.app.services.broadcaster import (
     broadcast_digest_async,
 )
 
+from backend.app.services import (
+    crawler,
+    clustering,
+    synthesizer,
+    broadcaster,
+    pipeline,
+    rss_service,
+    cluster_service,
+    synthesis_service,
+    telegram_service,
+)
+
 __all__ = [
     "clean_text",
     "parse_date",
@@ -52,4 +64,13 @@ __all__ = [
     "async_send_telegram_message",
     "broadcast_digest_sync",
     "broadcast_digest_async",
+    "crawler",
+    "clustering",
+    "synthesizer",
+    "broadcaster",
+    "pipeline",
+    "rss_service",
+    "cluster_service",
+    "synthesis_service",
+    "telegram_service",
 ]
