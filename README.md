@@ -17,6 +17,7 @@
   - [Eksekusi Manual](#eksekusi-manual)
   - [Dry-Run / Mode Pengujian](#dry-run--mode-pengujian)
   - [Menjalankan via Shell Script](#menjalankan-via-shell-script)
+  - [Menjalankan via Docker & Docker Compose](#menjalankan-via-docker--docker-compose)
 - [Otomasi Terjadwal](#-otomasi-terjadwal)
   - [macOS (launchd)](#1-macos-launchd)
   - [Linux / Unix (Cron)](#2-linux--unix-cron)
@@ -174,6 +175,44 @@ Tersedia file `run.sh` untuk otomasi di sistem berbasis Unix / macOS / Linux:
 chmod +x run.sh
 ./run.sh
 ```
+
+### Menjalankan via Docker & Docker Compose
+
+Proyek ini telah dikontainerisasi menggunakan **Docker** dan **Docker Compose** dengan mempertahankan filosofi *zero external pip dependencies* (berbasis image `python:3.11-alpine`).
+
+#### 1. Build Image Kontainer
+```bash
+docker compose build
+```
+
+#### 2. Menjalankan Uji Coba (Dry-Run)
+Menjalankan agregasi, klusterisasi, dan penulisan digest tanpa mengirim pesan Telegram:
+```bash
+docker compose run --rm news-runner --dry-run
+```
+
+#### 3. Menjalankan Eksekusi Penuh (On-Demand)
+Menjalankan pipeline satu kali menggunakan kredensial dari `.env`:
+```bash
+docker compose run --rm news-runner
+```
+
+#### 4. Menjalankan Penjadwal Otomatis (Scheduler Daemon)
+Menjalankan service di background dengan siklus harian otomatis (default interval: 86400 detik / 24 jam):
+```bash
+docker compose up -d news-scheduler
+
+# Memeriksa log scheduler:
+docker compose logs -f news-scheduler
+
+# Menghentikan scheduler:
+docker compose down
+```
+
+#### 5. Menggunakan Helper Script
+Tersedia skrip pembantu untuk kemudahan eksekusi:
+- **Linux / macOS**: `./run-docker.sh [args]` (contoh: `./run-docker.sh --dry-run`, `./run-docker.sh scheduler`)
+- **Windows PowerShell**: `.\run-docker.ps1 [Action]` (contoh: `.\run-docker.ps1 -Action dry-run`, `.\run-docker.ps1 -Action scheduler`)
 
 ---
 

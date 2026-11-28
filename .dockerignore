@@ -1,0 +1,13 @@
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.log
+.env
+.env.*
+!.env.example
+com.jane.dailynews.plist
+.DS_Store
+Thumbs.db
