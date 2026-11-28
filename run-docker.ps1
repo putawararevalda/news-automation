@@ -9,27 +9,32 @@ param(
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $ScriptDir
 
+$containerTool = "docker"
+if (-not (Get-Command docker -ErrorAction SilentlyContinue) -and (Get-Command podman -ErrorAction SilentlyContinue)) {
+    $containerTool = "podman"
+}
+
 switch ($Action.ToLower()) {
     "scheduler" {
         Write-Host "Starting news-automation scheduler daemon..." -ForegroundColor Cyan
-        docker compose up -d news-scheduler
+        & $containerTool compose up -d news-scheduler
     }
     "logs" {
-        docker compose logs -f news-scheduler
+        & $containerTool compose logs -f news-scheduler
     }
     "down" {
         Write-Host "Stopping containers..." -ForegroundColor Yellow
-        docker compose down
+        & $containerTool compose down
     }
     "build" {
-        Write-Host "Building docker images..." -ForegroundColor Cyan
-        docker compose build
+        Write-Host "Building container images..." -ForegroundColor Cyan
+        & $containerTool compose build
     }
     default {
         $runArgs = @("compose", "run", "--rm", "news-runner")
         if ($Action) { $runArgs += $Action }
         if ($RemainingArgs) { $runArgs += $RemainingArgs }
-        Write-Host "Executing news-runner in Docker..." -ForegroundColor Cyan
-        & docker $runArgs
+        Write-Host "Executing news-runner in container..." -ForegroundColor Cyan
+        & $containerTool $runArgs
     }
 }

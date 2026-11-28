@@ -9,6 +9,7 @@ services:
         required: false
     environment:
       - PYTHONUNBUFFERED=1
+      - TZ=${TZ:-Asia/Jakarta}
     volumes:
       - ./digests:/app/digests
       - ./daily-summary.md:/app/daily-summary.md
@@ -28,7 +29,8 @@ services:
         required: false
     environment:
       - PYTHONUNBUFFERED=1
-      - RUN_INTERVAL_SECONDS=86400
+      - TZ=${TZ:-Asia/Jakarta}
+      - RUN_INTERVAL_SECONDS=${RUN_INTERVAL_SECONDS:-86400}
     volumes:
       - ./digests:/app/digests
       - ./daily-summary.md:/app/daily-summary.md

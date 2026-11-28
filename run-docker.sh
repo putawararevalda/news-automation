@@ -4,26 +4,36 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
+# Select compose CLI (docker or podman fallback)
+if command -v docker >/dev/null 2>&1; then
+  CONTAINER_TOOL="docker"
+elif command -v podman >/dev/null 2>&1; then
+  CONTAINER_TOOL="podman"
+else
+  echo "[ERROR] Neither docker nor podman was found on PATH." >&2
+  exit 1
+fi
+
 COMMAND="${1:-}"
 
 case "$COMMAND" in
   scheduler)
     echo "Starting news-automation scheduler daemon..."
-    docker compose up -d news-scheduler
+    $CONTAINER_TOOL compose up -d news-scheduler
     ;;
   logs)
-    docker compose logs -f news-scheduler
+    $CONTAINER_TOOL compose logs -f news-scheduler
     ;;
   down)
     echo "Stopping containers..."
-    docker compose down
+    $CONTAINER_TOOL compose down
     ;;
   build)
-    echo "Building docker images..."
-    docker compose build
+    echo "Building container images..."
+    $CONTAINER_TOOL compose build
     ;;
   *)
-    echo "Executing news-runner in Docker..."
-    docker compose run --rm news-runner "$@"
+    echo "Executing news-runner in container..."
+    $CONTAINER_TOOL compose run --rm news-runner "$@"
     ;;
 esac
