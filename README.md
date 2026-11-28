@@ -109,7 +109,11 @@ LATEST_SUMMARY_FILE=./daily-summary.md
 
 ### 2. Konfigurasi melalui `config.json`
 
-Daftar RSS feed dan konfigurasi alternatif dapat dikelola pada `config.json`:
+Daftar RSS feed dan konfigurasi alternatif dapat dikelola pada `config.json`. Template bawaan telah disediakan di `config.example.json`:
+
+```bash
+cp config.example.json config.json
+```
 
 ```json
 {

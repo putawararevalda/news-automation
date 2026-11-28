@@ -1,0 +1,36 @@
+{
+  "telegram": {
+    "bot_token": "YOUR_TELEGRAM_BOT_TOKEN",
+    "chat_id": "YOUR_TELEGRAM_CHAT_ID"
+  },
+  "gemini_api_key": "YOUR_GEMINI_API_KEY",
+  "feeds": [
+    {
+      "name": "Antara News Terkini",
+      "category": "Indonesia / Nasional",
+      "url": "https://www.antaranews.com/rss/terkini.xml"
+    },
+    {
+      "name": "BBC News World",
+      "category": "Dunia / World",
+      "url": "https://feeds.bbci.co.uk/news/world/rss.xml"
+    },
+    {
+      "name": "BBC Indonesia",
+      "category": "Indonesia / Nasional",
+      "url": "https://feeds.bbci.co.uk/indonesia/rss.xml"
+    },
+    {
+      "name": "Tempo Nasional",
+      "category": "Indonesia / Nasional",
+      "url": "http://rss.tempo.co/nasional"
+    },
+    {
+      "name": "CNN Indonesia Nasional",
+      "category": "Indonesia / Nasional",
+      "url": "https://www.cnnindonesia.com/nasional/rss"
+    }
+  ],
+  "output_dir": "./digests",
+  "latest_summary_file": "./daily-summary.md"
+}

@@ -9,6 +9,18 @@ param(
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $ScriptDir
 
+# Ensure config and output files exist before mounting to prevent Docker from creating them as directories
+if (-not (Test-Path "config.json") -and (Test-Path "config.example.json")) {
+    Write-Host "Notice: config.json not found, initializing from config.example.json..." -ForegroundColor Yellow
+    Copy-Item "config.example.json" -Destination "config.json"
+}
+if (-not (Test-Path "daily-summary.md")) {
+    New-Item -ItemType File -Path "daily-summary.md" -Force | Out-Null
+}
+if (-not (Test-Path "digests")) {
+    New-Item -ItemType Directory -Path "digests" -Force | Out-Null
+}
+
 $containerTool = "docker"
 if (-not (Get-Command docker -ErrorAction SilentlyContinue) -and (Get-Command podman -ErrorAction SilentlyContinue)) {
     $containerTool = "podman"

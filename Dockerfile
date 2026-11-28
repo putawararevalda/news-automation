@@ -7,7 +7,9 @@ WORKDIR /app
 RUN apk add --no-cache ca-certificates tzdata
 
 # Copy project files (preserving zero-external-pip-dependency architecture)
-COPY daily_news.py config.json ./
+# Copies daily_news.py and configuration files; falls back to config.example.json if config.json is not present
+COPY daily_news.py config*.json ./
+RUN if [ ! -f config.json ] && [ -f config.example.json ]; then cp config.example.json config.json; fi
 
 # Ensure digests directory exists
 RUN mkdir -p digests
